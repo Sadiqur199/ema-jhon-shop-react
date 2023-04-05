@@ -39,7 +39,8 @@ const Shop = () => {
        //set the cart
        setCart(saveCart)
     },[products])
-
+    
+    //   button clicked function 
         const handleAddToCart = (product)=>{
             console.log(product);
             const newCart=[...cart, product];
