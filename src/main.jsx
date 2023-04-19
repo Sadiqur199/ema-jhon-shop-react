@@ -15,6 +15,7 @@ import CardproductLoder from './components/Lodder/CardProductLoder';
 import CheckOut from './components/CheckOut/CheckOut';
 import Singup from './components/Singup/Singup';
 import AuthProvider from './components/Provider/AuthProvider';
+import PrivateRoutes from './Routes/PrivateRoutes';
 
 const router = createBrowserRouter([
 
@@ -37,7 +38,7 @@ const router = createBrowserRouter([
       },
       {
         path:'checkout',
-        element:<CheckOut></CheckOut>
+        element:<PrivateRoutes><CheckOut></CheckOut></PrivateRoutes>
       },
       {
         path:'login',

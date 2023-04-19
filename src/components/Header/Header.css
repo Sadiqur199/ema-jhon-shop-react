@@ -16,3 +16,14 @@ nav.header a{
 nav.header a:hover{
     color: orange;
 }
+
+.text-color{
+    color: white;
+    margin-left: 10px;
+}
+.text-color button{
+    margin-left: 10px;
+    background-color: #1C2B35;
+    color: white;
+    border: none;
+}
