@@ -13,6 +13,8 @@ import Inventory from './components/Inventory/Inventory';
 import Login from './components/Login/Login';
 import CardproductLoder from './components/Lodder/CardProductLoder';
 import CheckOut from './components/CheckOut/CheckOut';
+import Singup from './components/Singup/Singup';
+import AuthProvider from './components/Provider/AuthProvider';
 
 const router = createBrowserRouter([
 
@@ -40,12 +42,18 @@ const router = createBrowserRouter([
       {
         path:'login',
         element:<Login></Login>
+      },
+      {
+        path:'singup',
+        element:<Singup></Singup>
       }
     ]
   }
 ])
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <AuthProvider>
     <RouterProvider router={router}></RouterProvider>
+    </AuthProvider>
   </React.StrictMode>,
 )
