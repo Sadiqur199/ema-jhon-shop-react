@@ -18,3 +18,27 @@
  * 
  * 
 */
+
+/**
+ * HOSTING RELATED
+ * -----------------
+ * one time install per pc
+ * 1.npm install -g firebase-tools
+ * 2.firebase login
+ * 
+ * 
+ * For Each Project One Time
+ * 1.firebase init
+ * 2.proceed 
+ * 3.hosting:firebase(up and down arrow) and use space bar to selected 
+ * 4.existing  project 
+ * 5.select the project careful
+ * 6.which project public directory : dist 
+ * 7.single page application :yes 
+ * 8.continuous  deployment :no
+ * 
+ * 
+ * For every time deploy
+ * 1.npm run build 
+ * 2.firebase deploy
+*/

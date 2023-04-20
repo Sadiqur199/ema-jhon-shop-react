@@ -1,13 +1,17 @@
 import React, { useContext, useState } from 'react';
 import './Login.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
 
 const Login = () => {
+  const [show , setShow] =useState(false)
   const [error ,setError] = useState('')
   const [success,setSuccess] = useState('')
   const {singIn} = useContext(AuthContext)
   const navigate = useNavigate()
+  const location = useLocation()
+  console.log(location)
+  const from = location.state?.from?.pathname || '/';
 
 const handelSingin = event =>{
   event.preventDefault();
@@ -20,7 +24,7 @@ const handelSingin = event =>{
     console.log(loggedUser)
     setSuccess('successfully')
     form.reset()
-    navigate('/')
+    navigate(from,{replace:true})
   })
   .catch(error=>{
     setError(error.message)
@@ -39,7 +43,12 @@ const handelSingin = event =>{
          </div>
          <div className="form-control">
           <label htmlFor="password">Password</label>
-          <input type="password" name="password" id="" required placeholder='Enter Your pass' />
+          <input type={show?"text" : "password"} name="password" id="" required placeholder='Enter Your pass' />
+          <h6 className='show-pass' onClick={() =>setShow(!show)}><small>
+            {
+              show ? <span>Hide Password</span> : <span>Show Password</span>
+            }
+            </small></h6>
          </div>
 
          <input className='btn-submit' type="submit" value="Login" />

@@ -11,10 +11,12 @@ const AuthProvider = ({children}) => {
 
   //email password authentication 
   const createuser = (email,password)=>{
+    setLoading(true)
     return createUserWithEmailAndPassword(auth,email,password)
   }
 
   const singIn = (email,password) =>{
+    setLoading(true)
     return signInWithEmailAndPassword(auth,email,password)
   }
   
