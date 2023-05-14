@@ -23,14 +23,19 @@ const Shop = () => {
      * 1.Determine total number of items
      * 2.decided the number of item per page
      * 3.calculate the total number of page
+     * 4.Determine the current page
      */
 
     useEffect(() => {
-        fetch('http://localhost:5000/products')
-            .then(res => res.json())
-            .then(data => setProducts(data))
-    }, []);
+     async function fetchData(){
+       const response = await fetch(`http://localhost:5000/products?page=${currentPage} &limit=${itemPerPage}`)
+       const data = await response.json
+       setProducts(data)
+     }
+     fetchData();
+    }, [currentPage,itemPerPage]);
 
+    
     useEffect(() => {
         const shortedCart = getShoppingCart()
         const saveCart = [];
