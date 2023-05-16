@@ -27,43 +27,58 @@ const Shop = () => {
      */
 
     useEffect(() => {
-     async function fetchData(){
-       const response = await fetch(`http://localhost:5000/products?page=${currentPage} &limit=${itemPerPage}`)
-       const data = await response.json()
-       setProducts(data)
-     }
-     fetchData();
-    }, [currentPage,itemPerPage]);
+        async function fetchData() {
+            const response = await fetch(`https://ema-john-sopping-server.vercel.app/products?page=${currentPage} &limit=${itemPerPage}`)
+            const data = await response.json()
+            setProducts(data)
+        }
+        fetchData();
+    }, [currentPage, itemPerPage]);
 
-    
+
     useEffect(() => {
         const shortedCart = getShoppingCart()
-        const saveCart = [];
+        const ids = Object.keys(shortedCart)
 
-        //get id
-        for (const id in shortedCart) {
+        fetch(`https://ema-john-sopping-server.vercel.app/productsByIds`, {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(ids)
+        })
+            .then(res => res.json())
+            .then(cardProducts => {
 
-            // get the product using id
-            const addedProduct = products.find(product => product._id === id)
-            console.log(addedProduct)
-            if (addedProduct) {
-                //quantity identify
+                const saveCart = [];
+                //get id
+                for (const id in shortedCart) {
 
-                const quantity = shortedCart[id];
-                addedProduct.quantity = quantity
-                //added product to save cart
-                saveCart.push(addedProduct)
+                    // get the product using id
+                    const addedProduct = cardProducts.find(product => product._id === id)
+                    // console.log(addedProduct)
+                    if (addedProduct) {
+                        //quantity identify
 
-            }
+                        const quantity = shortedCart[id];
+                        addedProduct.quantity = quantity
+                        //added product to save cart
+                        saveCart.push(addedProduct)
 
-        }
-        //set the cart
-        setCart(saveCart)
-    }, [products])
+                    }
+
+                }
+                //set the cart
+                setCart(saveCart)
+
+            })
+
+
+    }, [])
 
     //   button clicked function 
     const handleAddToCart = (product) => {
-        console.log(product);
+        // console.log(product);
         const newCart = [...cart, product];
         setCart(newCart);
         addToDb(product._id);
@@ -76,10 +91,10 @@ const Shop = () => {
     }
 
 
-    const options = [5, 10, 20]
-    function handleSelectChange(event){
-     setItemPerPage(parseInt(event.target.value));
-     setCurrentPage(0)
+    const options = [5, 10, 15, 20]
+    function handleSelectChange(event) {
+        setItemPerPage(parseInt(event.target.value));
+        setCurrentPage(0)
     }
 
 
@@ -114,19 +129,19 @@ const Shop = () => {
                 {
                     pageNumbers.map(number => <button
                         key={number}
-                        className={currentPage === number ?'selected':''}
+                        className={currentPage === number ? 'selected' : ''}
                         onClick={() => setCurrentPage(number)}
                     >{number}</button>)
                 }
 
                 <select value={itemPerPage} onChange={handleSelectChange}>
-                   {
-                    options.map(option=>(
-                        <option key={option} value={option}>
-                           {option}
-                        </option>
-                    ))
-                   }
+                    {
+                        options.map(option => (
+                            <option key={option} value={option}>
+                                {option}
+                            </option>
+                        ))
+                    }
                 </select>
             </div>
         </>
