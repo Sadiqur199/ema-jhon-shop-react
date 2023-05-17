@@ -14,6 +14,7 @@ const Shop = () => {
     const [itemPerPage, setItemPerPage] = useState(10)
 
     const { totalProducts } = useLoaderData()
+    console.log(totalProducts)
     // const itemPerPage = 10;
     const totalPage = Math.ceil(totalProducts / itemPerPage)
     const pageNumbers = [...Array(totalPage).keys()]
